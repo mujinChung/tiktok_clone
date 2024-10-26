@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/screens/features/authentication/sign_up_screen.dart';
 
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
+
+  void onSignUpTap(BuildContext context) {
+    Navigator.of(context).pop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,7 @@ class SignUpScreen extends StatelessWidget {
             children: [
               Gaps.v80,
               Text(
-                "Sign up for TikTok",
+                "Log in to TikTok",
                 style: TextStyle(
                   fontSize: Sizes.size24,
                   fontWeight: FontWeight.w700,
@@ -39,20 +44,24 @@ class SignUpScreen extends StatelessWidget {
       bottomNavigationBar: BottomAppBar(
         color: Colors.grey.shade100,
         elevation: 2,
-        child: const Padding(
-          padding: EdgeInsets.symmetric(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
             vertical: Sizes.size10,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Already have an account?'),
+              const Text("Don't have an account?"),
               Gaps.h5,
-              Text(
-                'Log in',
-                style: TextStyle(
-                  color: Color(0xFFE9435A),
-                  fontWeight: FontWeight.w600,
+              GestureDetector(
+                onTap: () => onSignUpTap(context),
+                child: const Text(
+                  'Sign Up',
+                  style: TextStyle(
+                    fontSize: Sizes.size16,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFFE9435A),
+                  ),
                 ),
               ),
             ],
