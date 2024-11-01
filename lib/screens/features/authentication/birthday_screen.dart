@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/screens/features/authentication/email_screen.dart';
 import 'package:tiktok_clone/screens/features/authentication/widgets/form_button.dart';
 import 'package:tiktok_clone/screens/features/onboarding/interests_screen.dart';
 
@@ -95,7 +94,10 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
             Gaps.v16,
             GestureDetector(
               onTap: _onNextTap,
-              child: const FormButton(disabled: false),
+              child: const FormButton(
+                disabled: false,
+                formText: "Next",
+              ),
             ),
           ],
         ),
