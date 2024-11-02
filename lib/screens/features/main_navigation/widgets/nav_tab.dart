@@ -9,11 +9,13 @@ class NavTab extends StatelessWidget {
     required this.navIsSelected,
     required this.navIcon,
     required this.onTap,
+    required this.selectedIcon,
   });
 
   final String navText;
   final bool navIsSelected;
   final IconData navIcon;
+  final IconData selectedIcon;
   final Function onTap;
 
   @override
@@ -30,7 +32,7 @@ class NavTab extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 FaIcon(
-                  navIcon,
+                  navIsSelected ? selectedIcon : navIcon,
                   color: Colors.white,
                 ),
                 Gaps.v5,
