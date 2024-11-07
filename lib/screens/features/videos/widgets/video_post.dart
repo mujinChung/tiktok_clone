@@ -79,9 +79,11 @@ class _VideoPostState extends State<VideoPost>
       _videoPlayerController.play();
       _animationController.forward();
     }
-    setState(() {
-      _isPaused = !_isPaused;
-    });
+    setState(
+      () {
+        _isPaused = !_isPaused;
+      },
+    );
   }
 
   @override
