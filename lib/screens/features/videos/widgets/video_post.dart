@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/screens/features/videos/widgets/video_button.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -21,12 +23,16 @@ class VideoPost extends StatefulWidget {
 
 class _VideoPostState extends State<VideoPost>
     with SingleTickerProviderStateMixin {
-  final VideoPlayerController _videoPlayerController =
-      VideoPlayerController.asset("assets/videos/video1.MOV");
+  late VideoPlayerController _videoPlayerController;
 
   late AnimationController _animationController;
 
+  String caption =
+      "#googleearth #googlemaps #googlephoto #googledrive #googleform#googleearth #googlemaps #googlephoto #googledrive #googleform";
+
   bool _isPaused = false;
+
+  bool _isTagExpanded = false;
 
   final Duration _animationDuration = const Duration(milliseconds: 200);
 
@@ -40,9 +46,12 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _initVideoPlayer() async {
+    _videoPlayerController =
+        VideoPlayerController.asset("assets/videos/video1.MOV");
     await _videoPlayerController.initialize();
-    setState(() {});
+    await _videoPlayerController.setLooping(true);
     _videoPlayerController.addListener(_onVideoChange);
+    setState(() {});
   }
 
   @override
@@ -86,6 +95,12 @@ class _VideoPostState extends State<VideoPost>
     );
   }
 
+  void _onToggleTag() {
+    setState(() {
+      _isTagExpanded = !_isTagExpanded;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return VisibilityDetector(
@@ -127,6 +142,95 @@ class _VideoPostState extends State<VideoPost>
                   ),
                 ),
               ),
+            ),
+          ),
+          Positioned(
+            left: 20,
+            bottom: 20,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "@mujinChung",
+                  style: TextStyle(
+                    fontSize: Sizes.size16,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Gaps.v10,
+                const Text(
+                  "This is Jeju's beautiful cafe!",
+                  style: TextStyle(
+                    fontSize: Sizes.size14,
+                    color: Colors.white,
+                  ),
+                ),
+                Gaps.v5,
+                GestureDetector(
+                  onTap: _onToggleTag,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: _isTagExpanded ? 300 : 200,
+                        child: Text(
+                          overflow: _isTagExpanded
+                              ? TextOverflow.visible
+                              : TextOverflow.ellipsis,
+                          caption,
+                          style: const TextStyle(
+                            fontSize: Sizes.size14,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: !_isTagExpanded,
+                        child: const Text(
+                          "See more",
+                          style: TextStyle(
+                            fontSize: Sizes.size14,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Positioned(
+            bottom: 20,
+            right: 10,
+            child: Column(
+              children: [
+                CircleAvatar(
+                  radius: 25,
+                  backgroundColor: Colors.black,
+                  foregroundColor: Colors.white,
+                  foregroundImage: NetworkImage(
+                      "https://avatars.githubusercontent.com/u/102348103?v=4"),
+                  child: Text("MJ"),
+                ),
+                Gaps.v24,
+                VideoButton(
+                  icon: FontAwesomeIcons.solidHeart,
+                  text: "2.9M",
+                ),
+                Gaps.v24,
+                VideoButton(
+                  icon: FontAwesomeIcons.solidComment,
+                  text: "2.9M",
+                ),
+                Gaps.v24,
+                VideoButton(
+                  icon: FontAwesomeIcons.share,
+                  text: "2.9M",
+                ),
+              ],
             ),
           ),
         ],
